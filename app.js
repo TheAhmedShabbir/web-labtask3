@@ -2,6 +2,7 @@ const Joi = require('joi')
 const express = require('express')
 const app = express()
 const mcqs = require('./mcqs.json')
+const { options, required, string, number } = require('joi')
 
 app.use(express.json())
 
@@ -35,7 +36,14 @@ app.post('/mcqs', (req,res) => {
 
     const mcq = {
         id: mcqs.length + 1,
-        name: req.body.statement
+        statement: req.body.statement,
+        options: [
+            {id: req.body.options.length - 3 , text: req.body.options[0].text},
+            {id: req.body.options.length - 2, text: req.body.options[1].text},
+            {id: req.body.options.length - 1, text: req.body.options[2].text},
+            {id: req.body.options.length, text: req.body.options[3].text},
+        ],
+        correct: req.body.correct
     }
 
     mcqs.push(mcq)
@@ -55,10 +63,11 @@ app.put('/mcqs/:id', (req,res) => {
     }
 
     mcq.statement = req.body.statement
-    mcq.option1 = req.body.option1
-    mcq.option2 = req.body.option2
-    mcq.option3 = req.body.option3
-    mcq.option4 = req.body.option4
+    mcq.options[0].text = req.body.options[0].text
+    mcq.options[1].text = req.body.options[1].text
+    mcq.options[2].text = req.body.options[2].text
+    mcq.options[3].text = req.body.options[3].text
+    mcq.correct = req.body.correct
     res.send(mcq)
 })
 
@@ -75,9 +84,25 @@ app.delete('/mcqs/:id', (req,res) => {
     res.send(mcq)
 })
 
-// to validate the statement of mcq
+// to validate the details of mcq
 function validateMcq(mcq){
-    const schema = Joi.object({statement: Joi.string().min(12).required()})
+    const schema = Joi.object({
+        statement: Joi.string().min(12).required(),
+        options: Joi.array().items({
+            text: Joi.string().min(1).required()
+        },
+        {
+            text: Joi.string().min(1).required()
+        },
+        {
+            text: Joi.string().min(1).required()
+        },
+        {
+            text: Joi.string().min(1).required()
+        }
+        ),
+        correct: Joi.number().min(1).required()
+    })
     return schema.validate(mcq)
 }
 

@@ -1,14 +1,14 @@
 [
     {
         "id": 1, 
-        "statement": "Which is national bird of Pakistan?",
+        "statement": "Which is national bird of Pakistan?", 
         "options": [
             {"id": 1, "text": "Crow"},
             {"id": 2, "text": "Chukor"},
             {"id": 3, "text": "Sparrow"},
             {"id": 4, "text": "Pigeon"}
         ],
-        "correct": 2
+        "correct": 4
     },
     {
         "id": 2, 
