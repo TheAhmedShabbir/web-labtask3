@@ -1,0 +1,35 @@
+[
+    {
+        "id": 1, 
+        "statement": "Which is national bird of Pakistan?",
+        "options": [
+            {"id": 1, "text": "Crow"},
+            {"id": 2, "text": "Chukor"},
+            {"id": 3, "text": "Sparrow"},
+            {"id": 4, "text": "Pigeon"}
+        ],
+        "correct": 2
+    },
+    {
+        "id": 2, 
+        "statement": "Which country is in the east of Pakistan?",
+        "options": [
+            {"id": 1, "text": "India"},
+            {"id": 2, "text": "China"},
+            {"id": 3, "text": "Afghanistan"},
+            {"id": 4, "text": "Iran"}
+        ],
+        "correct": 1
+    },
+    {
+        "id": 3, 
+        "statement": "Which is national flower of Pakistan?",
+        "options": [
+            {"id": 1, "text": "Sunflower"},
+            {"id": 2, "text": "Rose"},
+            {"id": 3, "text": "Lilly"},
+            {"id": 4, "text": "Jasmine"}
+        ],
+        "correct": 4
+    }
+]
