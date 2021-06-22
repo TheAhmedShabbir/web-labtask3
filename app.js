@@ -2,7 +2,6 @@ const Joi = require('joi')
 const express = require('express')
 const app = express()
 const mcqs = require('./mcqs.json')
-const { options, required, string, number } = require('joi')
 
 app.use(express.json())
 
