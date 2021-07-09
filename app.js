@@ -1,8 +1,11 @@
-const Joi = require('joi')
+const mongoose = require('mongoose')
 const express = require('express')
 const app = express()
 const mcqs = require('./routes/mcqs')
-const mongoose = require('mongoose')
+
+mongoose.connect('mongodb://localhost/quiz')
+    .then(console.log('connected to mongodb...'))
+    .catch(() => console.error('could not connected to mongodb...'))
 
 app.use(express.json())
 app.use('/mcqs',mcqs)
