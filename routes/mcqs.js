@@ -54,7 +54,7 @@ router.get('/:id', async (req,res) => {
 router.post('/', async (req,res) => {
     const {error} = validateMcq(req.body)
     if(error){
-        return res.status(400).send(error.details[0])   
+        return res.status(400).send(error.details[0].message)   
     }
 
     let mcq = new Mcqs({
@@ -79,13 +79,21 @@ router.put('/:id', async (req,res) => {
         return res.status(400).send(error.details[0].message)
     }
 
-    const mcq = await Mcqs.findbyIdandUpdate(req.params.id, {statement: req.body.statement}, {new: true}, 
-        {options: [0].req.body.text}, {correct: req.body.correct})
+    const mcq = await Mcqs.findByIdAndUpdate(req.params.id, {
+        statement: req.body.statement,
+        options: req.body.options,
+        correct: req.body.correct
+    },{new: true}, function(err, result){
+            if(err){
+                console.log(err)
+            } else{
+                console.log(result)
+            }
+        })
 
     if(!mcq){
         return res.status(404).send('The MCQ is not found :(')
     }
-
     res.send(mcq)
 })
 
