@@ -1,37 +1,10 @@
+const {Mcqs, validateMcq} = require('../models/mcqsmodel')
 const mongoose = require('mongoose')
 const Joi = require('joi')
 const express = require('express')
 const router = express.Router()
 // const mcqs = require('../mcqs.json')
 
-const Mcqs = mongoose.model('Mcqs', new mongoose.Schema({
-    statement: { 
-        type: String,
-        minlength: 10,
-        maxlength: 300, 
-        required: true, 
-    },
-    options: { 
-        type: Array,
-        validate: {
-            isAsync: true,
-            validator: function(v, callback){
-                setTimeout(() => {
-                    const result = v && v.length > 3
-                    callback(result)
-                }, 2000);
-            },
-            message: 'Options must have 4 values.'
-        }
-    },
-    correct: { 
-        type: Number,
-        minlength: 2, 
-        min: 0,
-        max: 3,
-        required: true 
-    }
-}))
 
 // to get all mcqs
 router.get('/', async (req,res) => {
@@ -86,8 +59,6 @@ router.put('/:id', async (req,res) => {
     },{new: true}, function(err, result){
             if(err){
                 console.log(err)
-            } else{
-                console.log(result)
             }
         })
 
@@ -108,16 +79,4 @@ router.delete('/:id', async (req,res) => {
     res.send(mcq)
 })
 
-// to validate the details of mcq
-function validateMcq(mcq){
-    const schema = Joi.object({
-        statement: Joi.string().min(12).required(),
-        options: Joi.array().items(Joi.string().min(1).required()),
-        correct: Joi.number().min(1).required()
-    })
-    return schema.validate(mcq)
-}
-
 module.exports = router
-
-
